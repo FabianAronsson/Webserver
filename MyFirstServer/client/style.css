@@ -1,0 +1,16 @@
+body{
+    background-color: blue;
+}
+
+h1{
+    font-size: 50px;
+}
+
+div{
+    width: 105%;
+    margin: auto;
+}
+
+img{
+    width: 20%;
+}
