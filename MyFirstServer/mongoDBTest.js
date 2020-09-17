@@ -6,14 +6,13 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
 });
 
+
+
+
 const kittySchema = new mongoose.Schema({
-    name: String
-  });
+  name: String
+});
 
-const Kitten = mongoose.model('Kitten', kittySchema);
-
-const silence = new Kitten({ name: 'Silence' });
-console.log(silence.name);
 
 kittySchema.methods.speak = function () {
     const greeting = this.name
@@ -21,8 +20,12 @@ kittySchema.methods.speak = function () {
       : "I don't have a name";
     console.log(greeting);
   }
+  const Kitten = mongoose.model('Kitten', kittySchema);
   
-const Kitten = mongoose.model('Kitten', kittySchema);
+  const silence = new Kitten({ name: 'Silence' });
+  console.log(silence.name);
+
+ 
 
 const fluffy = new Kitten({ name: 'fluffy' });
 fluffy.speak();
@@ -37,4 +40,3 @@ Kitten.find(function (err, kittens) {
     console.log(kittens);
   })
 
-  Kitten.find({ name: /^fluff/ }, callback);
