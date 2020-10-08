@@ -7,23 +7,22 @@ const { Console } = require('console')
 const app = express()
 const port = 3000
 
+app.set('view engine', 'ejs')
+
 app.use(express.json());
 app.use(express.urlencoded());
 
 const clientDir = __dirname + "\\client\\"
 
-app.get('/', (req, res) => res.sendFile(clientDir + "index.html"))
+app.use(express.static(clientDir));
 
-app.get('/hanif', (req, res) => res.sendFile(clientDir + "hanif.jpg"))
-
-app.get('/style.css', (req, res) => res.sendFile(clientDir + "style.css"))
-
+app.get('/', (req, res) => res.render('pages/index.ejs', { name: ""}));
 app.post('/', function (req, res) {
     
   let person = personModel.createPerson(req.body.fname, req.body.lname)
   dBModule.store(person)
     console.log(req.body)
-    res.redirect("/")
+    res.render('pages/index.ejs', { name: req.body.fname, lastName: req.body.lname})
   });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
