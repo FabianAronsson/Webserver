@@ -14,3 +14,8 @@ const personSchema = new mongoose.Schema({
 
     return person
   }
+
+  exports.getAllPeople = async () => {
+    let people = await Person.find({});
+    return people;
+  }
