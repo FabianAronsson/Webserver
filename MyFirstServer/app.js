@@ -24,7 +24,7 @@ app.get('/', async (req, res) => {
     res.render('pages/index.ejs', { name: req.body.fname, message: req.body.message})
   });*/
 
-  app.post('/messages', async (req, res) => {
+  app.post('/', async (req, res) => {
     let message = messageModel.createMessage (req.body.fname, req.body.message)
     dBModule.store(message)
     let messages = await messageModel.getAllMessages();
