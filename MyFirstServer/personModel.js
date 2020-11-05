@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 const personSchema = new mongoose.Schema({
-    fname: String,
-    lname: String
+    username: String,
+    password: String
   });
   
   const Person = mongoose.model('person', personSchema);
 
-  exports.createPerson = (firstName, lastName) => {
+  exports.createPerson = (username, password) => {
     var person = new Person({ 
-      fname: firstName, 
-      lname: lastName 
+      username: username, 
+      password: password 
     });
 
     return person
