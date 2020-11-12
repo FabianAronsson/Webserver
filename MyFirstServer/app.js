@@ -17,6 +17,7 @@ app.get('/', async (req, res) => {
   res.render('pages/index.ejs', { message: messages})
 });
 
+
 app.get('/register', (req, res) => {
   res.render('pages/register.ejs')
 });
@@ -48,22 +49,20 @@ app.get('/login', (req, res) => {
       res.redirect('/login')
   })
 
-  app.post('/login', (req, res) => {
+  app.post('/login', async (req, res) => {
     
-      if(req.body.username === personModel.getAllPeople.username){
-        bcrypt.compare(req.body.password, personModel.getAllPeople.password, function(err, result){
-            if(result == true){
-              console.log(hello)
-              res.redirect('/')
+      try{
+        const user = await personModel.getOnePerson(req.body.username)
+        if(user){
+            const isPasswordCorrect = await bcrypt.compare(req.body.password, user.password)
+            if(isPasswordCorrect){
+              console.log("yes we can")
+              res.redirect('pages/index.ejs')
             }
-            else{
-              res.send('incorrect')
-              res.redirect('/')
-            }
-        })
-  
-          res.send('ye')
-        
+        }
+      }catch{
+        console.log('rip')
+        res.status(500).send("no")
       }
      
 })
